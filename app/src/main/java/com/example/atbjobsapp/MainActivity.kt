@@ -3,44 +3,31 @@ package com.example.atbjobsapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.atbjobsapp.ui.theme.AtbjobsappTheme
+import androidx.navigation.compose.*
+import com.example.atbjobsapp.screen.InitialScreen
+import com.example.atbjobsapp.screen.Option
+import com.example.atbjobsapp.screen.SignUp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AtbjobsappTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            AppNavigation()
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AtbjobsappTheme {
-        Greeting("Android")
+fun AppNavigation() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "option") {
+        composable("first_screen") { InitialScreen(navController) }
+        composable("option") { Option(navController) }
+        composable("signup") { SignUp(navController) }
+//        composable("second_screen/{text}") { backStackEntry ->
+//            val text = backStackEntry.arguments?.getString("text")
+//            Login(navController, text)
+//        }
     }
 }
