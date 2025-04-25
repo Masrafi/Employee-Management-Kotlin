@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
 import com.example.atbjobsapp.screen.InitialScreen
+import com.example.atbjobsapp.screen.LogIn
 import com.example.atbjobsapp.screen.Option
 import com.example.atbjobsapp.screen.SignUp
 
@@ -25,6 +26,7 @@ fun AppNavigation() {
         composable("first_screen") { InitialScreen(navController) }
         composable("option") { Option(navController) }
         composable("signup") { SignUp(navController) }
+        composable("login") { LogIn(navController) }
 //        composable("second_screen/{text}") { backStackEntry ->
 //            val text = backStackEntry.arguments?.getString("text")
 //            Login(navController, text)

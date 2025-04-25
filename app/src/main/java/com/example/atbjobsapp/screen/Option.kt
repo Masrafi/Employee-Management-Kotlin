@@ -39,7 +39,7 @@ fun Option(navController: NavController){
             modifier = Modifier.fillMaxSize()
         ) {
             Button(
-                onClick = { navigationService.navigateToOption() },
+                onClick = { navigationService.navigateToLogin() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 16.dp, bottom = 16.dp, end = 16.dp),
