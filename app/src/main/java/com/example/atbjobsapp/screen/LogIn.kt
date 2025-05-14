@@ -41,7 +41,6 @@ import androidx.compose.ui.draw.clip
 fun LogIn(navController: NavController){
     val navigationService = NavigationService(navController)
     var text by remember { mutableStateOf("") }
-    var showDialog by remember { mutableStateOf(false) }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -93,7 +92,7 @@ fun LogIn(navController: NavController){
 
 
         Button(
-            onClick = {showDialog = true},
+            onClick = { navigationService.navigateToHome()},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 30.dp, bottom = 16.dp),
