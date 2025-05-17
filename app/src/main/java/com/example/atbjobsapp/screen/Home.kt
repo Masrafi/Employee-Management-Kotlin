@@ -70,7 +70,7 @@ fun Home(navController: NavController) {
                     .fillMaxHeight()
                     .width(280.dp) // custom width
                     .padding(0.dp), // remove padding
-                drawerContainerColor = MaterialTheme.colorScheme.surface,
+                drawerContainerColor = Color(0xffFFFFFF),
                 drawerTonalElevation = 0.dp
             ) {
                 DrawerContent(navController, drawerState)
@@ -81,20 +81,20 @@ fun Home(navController: NavController) {
             topBar = {
                 TopAppBar(
                     title = {
-                        Text("topBarText")
+                        Text("Home", color = Color(0xffFFFFFF))
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
+                        containerColor = Color(0xff73AB6B),
+                        titleContentColor = Color(0xff73AB6B),
                     ),
                     navigationIcon = {
                         IconButton(onClick = { scope.launch { drawerState.open() } }) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     },
-                actions = {
-                    scope.launch { drawerState.open()}
-                    },
+//                actions = {
+//                    scope.launch { drawerState.open()}
+//                    },
                 )
             },
             content = { innerPadding ->

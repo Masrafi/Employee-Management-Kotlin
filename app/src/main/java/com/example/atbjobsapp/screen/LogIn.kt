@@ -92,7 +92,7 @@ fun LogIn(navController: NavController){
 
 
         Button(
-            onClick = { navigationService.navigateToHome()},
+            onClick = { navigationService.navigateToInOut()},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 30.dp, bottom = 16.dp),

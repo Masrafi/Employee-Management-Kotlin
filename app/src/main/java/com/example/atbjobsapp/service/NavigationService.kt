@@ -17,6 +17,9 @@ class NavigationService(private val navController: NavController) {
     }
     fun navigateToHome() {
         navController.navigate("home")
+    }    
+    fun navigateToInOut() {
+        navController.navigate("inout")
     }
 //    fun navigateToSignUp() {
 //        navController.navigate("signup")
