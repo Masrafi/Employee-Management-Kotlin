@@ -73,7 +73,7 @@ fun Home(navController: NavController) {
                 drawerContainerColor = Color(0xffFFFFFF),
                 drawerTonalElevation = 0.dp
             ) {
-                DrawerContent(navController, drawerState)
+                DrawerContent(navigationService, navController, drawerState)
             }
         }
     ) {
@@ -236,6 +236,7 @@ fun TimeAndDateDisplay() {
 
 @Composable
 fun DrawerContent(
+    navigationService: NavigationService,
     navController: NavHostController,
     drawerState: DrawerState
 ) {
@@ -257,12 +258,14 @@ fun DrawerContent(
             androidx.compose.material.Icon(painter = painterResource(id = R.drawable.user), contentDescription = "User")
         }
 
-        DrawerBody(title = "Home", image = R.drawable.home)
-        DrawerBody(title = "Issues", image = R.drawable.desk)
-        DrawerBody(title = "Incident", image = R.drawable.desk_alt)
-        DrawerBody(title = "Leaves", image = R.drawable.notebook)
-        DrawerBody(title = "Change Password", image = R.drawable.bag)
-        DrawerBody(title = "Log Out", image = R.drawable.sign_out_squre)
+        DrawerBody(title = "Home", image = R.drawable.home, onClick = {
+            scope.launch { drawerState.close() }})
+        DrawerBody(title = "Update Profile", image = R.drawable.update_icon, onClick = {navigationService.navigateToUpdateProfile()})
+        DrawerBody(title = "Issues", image = R.drawable.desk, onClick = {})
+        DrawerBody(title = "Incident", image = R.drawable.desk_alt, onClick = {})
+        DrawerBody(title = "Leaves", image = R.drawable.notebook, onClick = {})
+        DrawerBody(title = "Change Password", image = R.drawable.bag, onClick = {})
+        DrawerBody(title = "Log Out", image = R.drawable.sign_out_squre, onClick = {})
     }
 }
 
@@ -270,10 +273,13 @@ fun DrawerContent(
 @Composable
 fun DrawerBody(
     title: String,
-    image: Int
+    image: Int,
+    onClick: () -> Unit
 ){
     Row(
-        modifier = Modifier.padding(all = 16.dp)
+        modifier = Modifier.clickable {
+            onClick()
+        }.padding(all = 16.dp)
     ) {
         Icon(painter = painterResource(id = image), contentDescription = "Desk", modifier = Modifier.size(30.dp))
         Spacer(modifier = Modifier.width(10.dp))

@@ -14,6 +14,7 @@ import com.example.atbjobsapp.screen.Option
 import com.example.atbjobsapp.screen.SignUp
 import androidx.core.view.WindowCompat
 import com.example.atbjobsapp.screen.InOut
+import com.example.atbjobsapp.screen.UpdateProfile
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,6 +38,7 @@ fun AppNavigation() {
         composable("login") { LogIn(navController) }
         composable("home") { Home(navController) }
         composable("inout") { InOut(navController) }
+        composable("update_profile") { UpdateProfile(navController) }
 //        composable("second_screen/{text}") { backStackEntry ->
 //            val text = backStackEntry.arguments?.getString("text")
 //            Login(navController, text)

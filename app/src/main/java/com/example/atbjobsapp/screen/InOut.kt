@@ -74,7 +74,7 @@ fun InOut(navController: NavController) {
                 drawerContainerColor = Color(0xffFFFFFF),
                 drawerTonalElevation = 0.dp
             ) {
-                DrawerContent(navController, drawerState)
+                DrawerContent(navigationService, navController, drawerState)
             }
         }
     ) {
