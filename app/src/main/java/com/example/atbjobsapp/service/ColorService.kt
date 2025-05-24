@@ -8,4 +8,5 @@ object ColorService {
     val deActiveColor = Color(0xFFBDBDBD)
     val blackColor = Color.Black
     val whiteColor = Color.White
+    val redColor = Color.Red
 }

@@ -122,7 +122,7 @@ fun InOut(navController: NavController) {
                                     .padding(start = 16.dp, end = 16.dp, top = 10.dp)
                                     .width(100.dp)
                                     .height(100.dp)
-                                    .clickable { navigationService.navigateToHome() }
+                                    .clickable { navigationService.navigateToLocationStatus() }
                                     .shadow(
                                         elevation = 5.dp,
                                         shape = RoundedCornerShape(10.dp), // Ensures shadow follows rounded corners
@@ -154,7 +154,7 @@ fun InOut(navController: NavController) {
                                     .padding(start = 16.dp, end = 16.dp, top = 10.dp)
                                     .width(100.dp)
                                     .height(100.dp)
-                                    .clickable { navigationService.navigateToHome() }
+                                    .clickable { navigationService.navigateToLocationStatus() }
                                     .shadow(
                                         elevation = 5.dp,
                                         shape = RoundedCornerShape(10.dp), // Ensures shadow follows rounded corners
