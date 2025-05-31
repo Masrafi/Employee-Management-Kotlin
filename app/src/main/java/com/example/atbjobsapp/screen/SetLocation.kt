@@ -214,7 +214,7 @@ fun SetLocation(navController: NavController){
                         singleLine = false // Important: must be false to support multi-line
                     )
                     Button(
-                        onClick = { navigationService.navigateToHome()},
+                        onClick = { navigationService.navigateToHomeStatus()},
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 30.dp, bottom = 16.dp),

@@ -15,8 +15,11 @@ class NavigationService(private val navController: NavController) {
     fun navigateToLogin() {
         navController.navigate("login")
     }
-    fun navigateToHome() {
-        navController.navigate("home")
+    fun navigateToHome(text: String) {
+        navController.navigate("home/{text}")
+    }
+    fun navigateToHomeStatus() {
+        navController.navigate("home_status")
     }    
     fun navigateToInOut() {
         navController.navigate("inout")

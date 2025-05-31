@@ -51,17 +51,27 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import com.example.design.service.ColorService
-import android.graphics.drawable.Icon
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.window.Dialog // dialog
+import androidx.compose.material.icons.filled.Warning
+import android.util.Log
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Home(navController: NavController) {
+fun Home(navController: NavController, text: String?) {
     val navigationService = NavigationService(navController)
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
+    /// dialog
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedReason by remember { mutableStateOf("") }
+    var otherReasonText by remember { mutableStateOf("") }
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -103,10 +113,126 @@ fun Home(navController: NavController) {
                     Column(
                         modifier = Modifier
                             .padding(innerPadding)
+                            .padding(start = 16.dp, end = 16.dp)
                             .fillMaxSize()
                     ) {
                         TimeAndDateDisplay()
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Row() {
+                            Icon(
+                                painter = painterResource(id = R.drawable.alert),
+                                contentDescription = "Location"
+                            )
+                            //Text(text = "Your Location: Block C, 24/A Tajmahal Road (Ring Road, Near Shia Mosque, Dhaka 1207")  
+                            Text(
+                                text = buildAnnotatedString {
+                                    withStyle(
+                                        style = SpanStyle(
+                                            color = Color(0xff414042),
+                                            fontWeight = FontWeight.SemiBold,
+                                            fontSize = 20.sp
+                                        )
+                                    ) {
+                                        append("Status: ")
+                                    }
+                                    withStyle(
+                                        style = SpanStyle(
+                                            color = ColorService.blackColor,
+                                            fontWeight = FontWeight.Normal,
+                                            fontSize = 20.sp
+                                        )
+                                    ) {
+                                        append("You are not at $text")
+                                    }
+                                },
+                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Image(painter = painterResource(id = R.drawable.map), contentDescription = "Map", contentScale = ContentScale.Crop, // or Fit, FillBounds depending on your need
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp))
+                        if (showDialog) {
+                            Dialog(onDismissRequest = { showDialog = false }) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(Color(0xFFF0F0F0), shape = RoundedCornerShape(12.dp))
+                                        .padding(16.dp)
+                                ) {
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text(
+                                            text = "Select a Reason",
+                                            fontSize = 20.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(bottom = 8.dp)
+                                        )
 
+                                        Icon(
+                                            imageVector = Icons.Default.Warning,
+                                            contentDescription = "Warning Icon",
+                                            tint = Color.Red,
+                                            modifier = Modifier
+                                                .size(48.dp)
+                                                .padding(bottom = 8.dp)
+                                        )
+
+                                        Text(
+                                            text = "Please tell us why you're late:",
+                                            fontSize = 16.sp,
+                                            modifier = Modifier.padding(bottom = 16.dp)
+                                        )
+
+                                        val options = listOf("Traffic Jam", "Health Issue", "Others")
+                                        options.forEach { option ->
+                                            Row(
+                                                verticalAlignment = Alignment.CenterVertically,
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .clickable { selectedReason = option }
+                                                    .padding(vertical = 4.dp)
+                                            ) {
+                                                RadioButton(
+                                                    selected = selectedReason == option,
+                                                    onClick = { selectedReason = option }
+                                                )
+                                                Text(option, fontSize = 16.sp)
+                                            }
+                                        }
+
+                                        if (selectedReason == "Others") {
+                                            OutlinedTextField(
+                                                value = otherReasonText,
+                                                onValueChange = { otherReasonText = it },
+                                                label = { Text("Enter your reason") },
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(top = 8.dp)
+                                            )
+                                        }
+
+                                        Button(
+                                            onClick = {
+                                                val result = if (selectedReason == "Others") otherReasonText else selectedReason
+                                                Log.d("ReasonDialog", "Submitted: $result")
+                                                // Do your navigation or action here
+                                                showDialog = false
+                                            },
+                                            modifier = Modifier
+                                                .padding(top = 16.dp)
+                                                .fillMaxWidth()
+                                        ) {
+                                            Text("Submit")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(30.dp))
                         Row() {
                             Icon(
                                 painter = painterResource(id = R.drawable.location),
@@ -167,7 +293,10 @@ fun Home(navController: NavController) {
                                 Text(text = "Check In")
                             }
                             Spacer(modifier = Modifier.width(30.dp))
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.clickable { showDialog=true }
+                            
+                            ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.clock),
                                     contentDescription = "Clock",

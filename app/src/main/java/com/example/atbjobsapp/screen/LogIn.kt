@@ -48,7 +48,7 @@ fun LogIn(navController: NavController){
             .padding(start = 16.dp, end = 16.dp)
     ) {
         Text(text = "Welcome Back!", fontSize = 24.sp, color = Color(0xff414042))
-        Icon(painter = painterResource(id = R.drawable.login_image), contentDescription = "Login Image")
+        Image(painter = painterResource(id = R.drawable.login_image), contentDescription = "Login Image", modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally))
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
